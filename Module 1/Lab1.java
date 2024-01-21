@@ -3,40 +3,55 @@ public class Lab1 {
         char[][] copy = new char[4][13];
         char[][] car = make_forward();
         
-        // Make the copy of car
+        // Make copy
         for (int i = 0; i < car.length; i++) {
             for (int j = 0; j < car[i].length; j++) {
                 copy[i][j] = car[i][j];    
             }
         }
 
-        // Print the copy
+        // Print copy
         for (int i = 0; i < car.length; i++) {
             for (int j = 0; j < car[i].length; j++) {
                 System.out.print(copy[i][j]);    
             }
-            System.out.print("\n");
+            System.out.print('\n');
         }
 
-        // Print reflection 
+        // Mirror
         char[][] reflection = make_mirror(copy);
 
         for (int i = 0; i < car.length; i++) {
             for (int j = 0; j < car[i].length; j++) {
                 System.out.print(reflection[i][j]);    
             }
-            System.out.print("\n");
+            System.out.print('\n');
         }
 
-        // Concatenate arrays, collide
-        char[][] collision = new char[copy.length*2][26];
-        
-        for (int i = 0; i < collision.length; i++) {
-            for (int j = 0; j < collision.length; j++) {
-                collision[i] = copy[i] + reflection[i];
+        // Collision
+        int rowLength = copy[0].length + reflection[0].length;
+        char[][] collision = new char[copy.length][rowLength];
+
+        // Fill cells
+        for (int i = 0; i < copy.length; i++) {
+            for (int j = 0; j < copy[i].length; j++) {
+                collision[i][j] = copy[i][j];
             }
-            
         }
+        for (int i = 0; i < reflection.length; i++) {
+            for (int j = 0; j < reflection[i].length; j++) {
+                collision[i][j + copy[i].length] = reflection[i][j];
+            }
+        }
+        
+        // Final print
+        for (int i = 0; i < collision.length; i++) {
+            for (int j = 0; j < collision[i].length; j++) {
+                System.out.print(collision[i][j]);
+            }
+            System.out.print('\n');
+        }
+
     }
 
     public static char[][] make_forward() {
@@ -97,22 +112,34 @@ public class Lab1 {
     }  
 
     public static char[][] make_mirror(char[][] car) {
-        char[][] mirroredCar = new char[car.length][13]; // how do I not hardcode arr[].length
+        char[][] mirroredCar = new char[car.length][];
         
         for (int i = 0; i < car.length; i++) {
+            mirroredCar[i] = new char[car[i].length];
+
             for (int j = 0, k = car[i].length - 1; j < car[i].length; j++, k--) {
                 char presentCharacter = car[i][k];
 
-                if (presentCharacter == '(') {
-                    mirroredCar[i][j] = ')';
-                } else if (presentCharacter == ')') {
-                    mirroredCar[i][j] = '(';
-                } else if (presentCharacter == '/') {
-                    mirroredCar[i][j] = '\\';
-                } else if (presentCharacter == '\\') {
-                    mirroredCar[i][j] = '/';
-                } else {
-                    mirroredCar[i][j] = presentCharacter;
+                switch (presentCharacter) {
+                    case '(':
+                        mirroredCar[i][j] = ')';    
+                        break;
+                    
+                    case ')':
+                        mirroredCar[i][j] = '(';
+                        break;
+
+                    case '/':
+                        mirroredCar[i][j] = '\\';
+                        break;
+
+                    case '\\':
+                        mirroredCar[i][j] = '/';
+                        break;
+
+                    default:
+                        mirroredCar[i][j] = presentCharacter;
+                        break;
                 }
             }
         }
