@@ -18,9 +18,9 @@ public class Lab1 {
             System.out.print("\n");
         }
 
-        // Make reflection
-        char[][] reflection = make_mirror(copy);
         // Print reflection 
+        char[][] reflection = make_mirror(copy);
+
         for (int i = 0; i < car.length; i++) {
             for (int j = 0; j < car[i].length; j++) {
                 System.out.print(reflection[i][j]);    
@@ -28,7 +28,15 @@ public class Lab1 {
             System.out.print("\n");
         }
 
-        // Concatenate arrays, colide
+        // Concatenate arrays, collide
+        char[][] collision = new char[copy.length*2][26];
+        
+        for (int i = 0; i < collision.length; i++) {
+            for (int j = 0; j < collision.length; j++) {
+                collision[i] = copy[i] + reflection[i];
+            }
+            
+        }
     }
 
     public static char[][] make_forward() {
@@ -88,42 +96,28 @@ public class Lab1 {
         return pixel;
     }  
 
-    public static char[][] make_mirror(char[][] arr) {
-        char[][] mirror = new char[arr.length][]; // how do I make arr[].length = 13
+    public static char[][] make_mirror(char[][] car) {
+        char[][] mirroredCar = new char[car.length][13]; // how do I not hardcode arr[].length
         
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0, k = arr[i].length-1; j < arr[i].length; j++, k--) {
-                // mirrorLocation = mirror[i][k]; 
-                char presentCharacter = arr[i][j];
+        for (int i = 0; i < car.length; i++) {
+            for (int j = 0, k = car[i].length - 1; j < car[i].length; j++, k--) {
+                char presentCharacter = car[i][k];
 
-                
-                switch (presentCharacter) {
-                    case null:
-                        mirror[i][k] = '\s';
-                    case '(':  
-                        mirror[i][k] = ')';
-                        break;
-
-                    case ')':
-                        mirror[i][k] = '(';
-                        break;
-
-                    case '/':
-                        mirror[i][k] = '\\';
-                        break;
-
-                    case '\\':
-                        mirror[i][k] = '/';
-                        break;
-                    
-                    default:
-                        mirror[i][k] = arr[i][j]; 
-                        break; 
-                    }
+                if (presentCharacter == '(') {
+                    mirroredCar[i][j] = ')';
+                } else if (presentCharacter == ')') {
+                    mirroredCar[i][j] = '(';
+                } else if (presentCharacter == '/') {
+                    mirroredCar[i][j] = '\\';
+                } else if (presentCharacter == '\\') {
+                    mirroredCar[i][j] = '/';
+                } else {
+                    mirroredCar[i][j] = presentCharacter;
+                }
             }
         }
-        return mirror;
+        return mirroredCar;
+
     }
 
 }
-
