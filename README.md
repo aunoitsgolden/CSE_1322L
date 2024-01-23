@@ -1,4 +1,5 @@
 # _CSE1322 - Programming & Problem Solving II_
+[Notes](https://www.kennesaw.edu/ccse/first-year-experience/cse-1322.php) | [Labs](https://www.kennesaw.edu/ccse/first-year-experience/cse-1322-lab.php)
 - Review of 1321
   - [Lab 1](https://github.com/aunoitsgolden/CSE_1322L/blob/main/1321%20Review/Lab1.java) + [Assignment 1](https://github.com/aunoitsgolden/CSE_1322L/blob/main/1321%20Review/Assignment1.java)
 - Pass by Value, Static, Collections
