@@ -1,1 +1,19 @@
-# CSE_1322L
+# CSE1322 - Programming & Problem Solving II
+- Review of 1321
+  - Lab 1 + Assignment 1
+- Pass by Value, Static, Collections
+  - Labs 2, 3 + Assignment 2
+- Advanced OOP
+  - Labs 4, 5, 6 + Assignments 3, 4
+- Recursion
+  - Lab 7 + Assignment 5
+- Exceptions
+  - Lab 8
+- File IO
+  - Lab 9 + Assignment 6
+- Threads & Parallel
+  - Lab 10
+- Data Structures
+  - Lab 11 + Assignment 7
+- Graphs & GUIs
+  - Lab 12
