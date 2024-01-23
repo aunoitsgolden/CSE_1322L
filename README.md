@@ -1,10 +1,10 @@
-# CSE1322 - Programming & Problem Solving II
+# _CSE1322 - Programming & Problem Solving II_
 - Review of 1321
-  - Lab 1 + Assignment 1
+  - [Lab 1](https://github.com/aunoitsgolden/CSE_1322L/blob/main/1321%20Review/Lab1.java) + [Assignment 1](https://github.com/aunoitsgolden/CSE_1322L/blob/main/1321%20Review/Assignment1.java)
 - Pass by Value, Static, Collections
-  - Labs 2, 3 + Assignment 2
+  - [Lab 2](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Pass%20by%20Value%2C%20Static%2C%20Collections/Lab2.java), [Lab 3](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Pass%20by%20Value%2C%20Static%2C%20Collections/Lab3.java) + Assignment 2
 - Advanced OOP
-  - Labs 4, 5, 6 + Assignments 3, 4
+  - Lab 4, Lab 5, and Lab 6 + Assignment 3 and Assignment 4
 - Recursion
   - Lab 7 + Assignment 5
 - Exceptions
