@@ -15,6 +15,10 @@ class Coins {
         return denomination * weight;
     }
 
+    public float getTotalValue() {   
+        return denomination * quantityOnHand;
+    }
+
     public void increaseQuantity(int quantity) {
         quantityOnHand += quantity;
     }
@@ -102,7 +106,86 @@ public class Assignment1 {
         tens.increaseQuantity(2);
         twenties.increaseQuantity(5);
 
-        System.out.print(twenties);
+        System.out.println(twenties);
+        System.out.println(tens);
+        System.out.println(fives);
+        System.out.println(ones);
+        System.out.println(quarters);
+        System.out.println(dimes);
+        System.out.println(nickels);
+        System.out.println(pennies);
 
+        float compositeTotal = ( // make to method
+            twenties.getTotalValue() + tens.getTotalValue() + fives.getTotalValue() + 
+            ones.getTotalValue() + quarters.getTotalValue() + dimes.getTotalValue() + 
+            nickels.getTotalValue() + pennies.getTotalValue()
+        );
+        float compositeWeight = ( // make to method
+            quarters.getTotalWeight() + dimes.getTotalWeight() + nickels.getTotalWeight() + 
+            pennies.getTotalWeight()
+        );
+        System.out.println("Total money is "+ "$"+ String.format("%4.2f", compositeTotal) + " total weight is "+ compositeWeight +"oz."); // is it better make print pretty a method?
+
+        System.out.print("How much do you need? ");
+        float amountNeeded = input.nextFloat();
+
+        while (amountNeeded != 0) {
+            float amountAdjustment = 0;
+            // this is interesting, it can be easily unresourceful and go by 1, or we can find an alternative approach...
+            // try... so can be chosenCurrency.decreaseQuantity and -= chosenQuantity.denomination
+            // Can't do: switch (float)            
+
+            if (amountNeeded > 20 && twenties.getTotalValue() > 0) {
+                amountAdjustment = 20;
+                twenties.decreaseQuantity(1);
+
+            } else if (amountNeeded > 10 && tens.getTotalValue() > 0) {
+                amountAdjustment = 10;
+                tens.decreaseQuantity(1);
+
+            } else if (amountNeeded > 5 && fives.getTotalValue() > 0) {
+                amountAdjustment = 5;
+                fives.decreaseQuantity(1);
+
+            } else if (amountNeeded > 1 && ones.getTotalValue() > 0) {
+                amountAdjustment = 1;
+                ones.decreaseQuantity(1);
+
+            } else if (amountNeeded > 0.25 && quarters.getTotalValue() > 0) {
+                amountAdjustment = 0.25f;
+                quarters.decreaseQuantity(1);
+
+            } else if (amountNeeded > 0.1 && dimes.getTotalValue() > 0) {
+                amountAdjustment = 0.1f;
+                dimes.decreaseQuantity(1);
+
+            } else if (amountNeeded > 0.05 && nickels.getTotalValue() > 0) {
+                amountAdjustment = 0.05f;
+                nickels.decreaseQuantity(1);
+            
+            } else if (amountNeeded > 0.01 && pennies.getTotalValue() > 0) { 
+                amountAdjustment = 0.01f;
+                pennies.decreaseQuantity(1);              
+            } else {
+                amountNeeded = 0;
+            } 
+            if (amountNeeded > 0) {
+                System.out.println("Give them a "+String.format("%4.2f", amountAdjustment)+" ");
+                amountNeeded -= amountAdjustment;
+            }
+        }
+
+        compositeTotal = ( // make to method
+            twenties.getTotalValue() + tens.getTotalValue() + fives.getTotalValue() + 
+            ones.getTotalValue() + quarters.getTotalValue() + dimes.getTotalValue() + 
+            nickels.getTotalValue() + pennies.getTotalValue()
+        );
+        compositeWeight = ( // make to method
+            quarters.getTotalWeight() + dimes.getTotalWeight() + nickels.getTotalWeight() + 
+            pennies.getTotalWeight()
+        );
+        System.out.println("Total money is "+ "$"+ String.format("%4.2f", compositeTotal) + " total weight is "+ compositeWeight +"oz."); // is it better make print pretty a method?
+
+        input.close();
     }
 }
