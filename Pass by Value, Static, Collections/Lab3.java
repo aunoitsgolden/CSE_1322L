@@ -6,7 +6,6 @@ class Question {
     private String text;
     private String answer;
     private int difficulty;
-    // private int questionNumber; // modify modify_question() and give_quiz()
 
     public Question(String text, String answer, int difficulty) {
         this.text = text;
@@ -52,37 +51,59 @@ class Quiz {
         System.out.print("What's the answer? ");
         String answer = quizInput.nextLine();
         System.out.print("What's the difficulty of this question? ");
-        int difficulty = quizInput.nextInt();
-
-        Question newQuestion = new Question(question, answer, difficulty); // cannot find symbol (Question)
+        int difficulty = quizInput.nextInt(); // no error handling (removed to wait for module 5)
+        quizInput.nextLine();
+        
+        Question newQuestion = new Question(question, answer, difficulty);
         quiz.add(newQuestion);
     }
 
     public void remove_question() {
-        int j = 0;
+        int i = 0;
         for (Question x : quiz) {
-            System.out.print(j+") "+ x);
+            System.out.print(i +") "+ x);
         }
 
         System.out.print("Which question do you want to remove? ");
-        quiz.remove(quizInput.nextInt());
+        String questionSelected = input.nextLine();
+
+        if (Integer.parseInt(questionSelected)) {
+            quiz.remove(Integer.parseInt(questionSelected));
+        } else if (quiz.contains(questionSelected)) {
+            quiz.remove(questionSelected);
+        } else {
+            System.out.println("Invalid entry, please try again.");
+        }
     }
 
     public void modify_question() {
-        int j = 0;
-        for (Question q : quiz) {
-            System.out.print(j+") "+q);
+        int questionIndex;
+        int i = 0;
+        for (Question x : quiz) {
+            System.out.print(i +") "+ x);
         }
-        System.out.print("Which question would you like to modify? ");
-        int questionSelected = quizInput.nextInt();
-        System.out.println(quiz.get(questionSelected));
-        
-        System.out.print("What's the new question? ");
-        quiz.get(questionSelected).set_question(quizInput.nextLine());
-        System.out.print("What's the answer? ");
-        quiz.get(questionSelected).set_answer(quizInput.nextLine());
-        System.out.print("What's the difficulty? ");
-        quiz.get(questionSelected).set_difficulty(quizInput.nextInt());
+        System.out.print("Which question do you want to modify? ");
+        String questionSelected = input.nextLine();
+
+        if (Integer.parseInt(questionSelected)) {
+            questionIndex = Integer.parseInt(questionSelected);
+            validEntry = true;
+        } else if (quiz.contains(questionSelected)) {
+            questionIndex = quiz.indexOf(questionSelected);
+            validEntry = true;
+        } else {
+            System.out.println("Invalid entry, please try again.");
+        }
+
+        if (validEntry = true) {
+            System.out.print("What's the new question? ");
+            String question = quizInput.nextLine();
+            System.out.print("What's the answer? ");
+            String answer = quizInput.nextLine();
+            System.out.print("What's the difficulty of this question? ");
+            int difficulty = quizInput.nextInt();
+            quiz.set(questionIndex, Question(question, answer, difficulty));
+        }
     }
 
     public void give_quiz() {
@@ -95,10 +116,10 @@ class Quiz {
                 System.out.println("Correct!");
                 score += 1;
             } else {
-                System.out.println("Incorrect! Try again");
+                System.out.println("Incorrect!, the answer was \""+x.get_answer()+"\"");
             }  
         }
-        System.out.println("Quiz finished! You scored "+score+" out of "+quiz.size()); //+totalScore); 
+        System.out.println("Quiz finished! You scored "+score+" out of "+quiz.size());
     }
 
 }
@@ -139,6 +160,7 @@ public class Lab3 {
             }
 
         } while (menuInput != 5);
+        quiz.quizInput.close();
         input.close();
     }
     
