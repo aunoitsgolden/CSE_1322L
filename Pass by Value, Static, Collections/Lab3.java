@@ -43,67 +43,62 @@ class Question {
 class Quiz {
 
     private ArrayList<Question> quiz = new ArrayList<Question>();
+    private Scanner quizInput = new Scanner(System.in);
 
     public void add_question() {
-        
+ 
         System.out.print("What's the new question? ");
-        String question = input.nextLine();
+        String question = quizInput.nextLine();
         System.out.print("What's the answer? ");
-        String answer = input.nextLine();
+        String answer = quizInput.nextLine();
         System.out.print("What's the difficulty of this question? ");
-        int difficulty = input.nextInt();
+        int difficulty = quizInput.nextInt();
 
-        quiz.add(Question(question, answer, difficulty));
+        Question newQuestion = new Question(question, answer, difficulty); // cannot find symbol (Question)
+        quiz.add(newQuestion);
     }
 
     public void remove_question() {
-        // for (Question x : Quiz) {
-        //     System.out.print(x);
-        // }
-
-        for (int i = 0; i < quiz.length; i++) {
-            System.out.print(i+") "+quiz.get(i));
+        int j = 0;
+        for (Question x : quiz) {
+            System.out.print(j+") "+ x);
         }
+
         System.out.print("Which question do you want to remove? ");
-        quiz.remove(input.nextInt());
+        quiz.remove(quizInput.nextInt());
     }
 
     public void modify_question() {
-        // for (Question x : Quiz) { // how do I add indices for this?
-        //     System.out.print(x);
-        // }                            
-
-        for (int i = 0; i < quiz.length; i++) {
-            System.out.print(i+") "+quiz.get(i));
+        int j = 0;
+        for (Question q : quiz) {
+            System.out.print(j+") "+q);
         }
         System.out.print("Which question would you like to modify? ");
-        questionSelected = input.nextInt();
+        int questionSelected = quizInput.nextInt();
         System.out.println(quiz.get(questionSelected));
         
         System.out.print("What's the new question? ");
-        quiz.get(questionSelected).set_question(input.nextLine());
+        quiz.get(questionSelected).set_question(quizInput.nextLine());
         System.out.print("What's the answer? ");
-        quiz.get(questionSelected).set_answer(input.nextLine());
+        quiz.get(questionSelected).set_answer(quizInput.nextLine());
         System.out.print("What's the difficulty? ");
-        quiz.get(questionSelected).set_difficulty(input.nextInt());
+        quiz.get(questionSelected).set_difficulty(quizInput.nextInt());
     }
 
-    public Quiz give_quiz() {
+    public void give_quiz() {
         int score = 0;
-        String localAnswer = quiz.get(i).answer;
-        String localQuestion = quiz.get(i).text;
 
-        for (int i = 0; i < quiz.length; i++) {
-            System.out.print(localQuestion);
-            if ((input.nextLine).equals(localAnswer)) { 
+        for (Question x: quiz) {
+            System.out.print(x.get_question_text());
+            
+            if ((quizInput.nextLine()).equals(x.get_answer())) { 
                 System.out.println("Correct!");
                 score += 1;
             } else {
                 System.out.println("Incorrect! Try again");
-                i -= 1; // repeat question, is there a better way to do this?
             }  
         }
-        System.out.println("Quiz finished! You scored "+score+" out of "); //+totalScore); 
+        System.out.println("Quiz finished! You scored "+score+" out of "+quiz.size()); //+totalScore); 
     }
 
 }
