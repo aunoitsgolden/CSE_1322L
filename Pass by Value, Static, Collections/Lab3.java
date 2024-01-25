@@ -124,6 +124,8 @@ class Quiz {
             if (score > highScore) {
                 System.out.println("New highscore: "+score+"!");
                 highScore = score;
+            } else {
+                System.out.println("Current highscore is: "+highScore+".");
             }
         }
     }
