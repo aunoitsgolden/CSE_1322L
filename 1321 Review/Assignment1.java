@@ -75,6 +75,10 @@ class Notes {
         return quantityOnHand;
     }
 
+    public int getDenomination() {
+        return denomination;
+    }
+
     public String printPretty(float amount) {
         return("$"+ String.format("%4.2f", amount));
     }
@@ -83,20 +87,46 @@ class Notes {
         return printPretty(getTotalValue()) +" in "+ printPretty(denomination) +" notes.";
     }
 
+
 }
 
 public class Assignment1 {
+    public static float compositeTotal(Notes[] notes, Coins[] coins) {
+        float composite = 0;
+
+        for (Notes x: notes) {
+            composite += x.getTotalValue();
+        }
+        for (Coins x: coins) {
+            composite += x.getTotalValue();
+        }
+
+        return composite;
+    }
+
+    public static float compositeWeight(Coins[] coins) {
+        float composite = 0;
+
+        for (Coins x: coins) {
+            composite += x.getTotalWeight();
+        }
+
+        return composite;
+    }
+
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
         Notes twenties = new Notes(20);
         Notes tens = new Notes(10);
         Notes fives = new Notes(5);
         Notes ones = new Notes(1);
+        Notes[] allNotes = {twenties, tens, fives, ones};
 
         Coins quarters = new Coins(0.25f, 0.2f);
         Coins dimes = new Coins(0.10f, 0.08f);
         Coins nickels = new Coins(0.05f, 0.176f);
         Coins pennies = new Coins(0.01f, 0.088f);
+        Coins[] allCoins = {quarters, dimes, nickels, pennies};
 
         dimes.increaseQuantity(41);
         nickels.increaseQuantity(17);
@@ -106,86 +136,41 @@ public class Assignment1 {
         tens.increaseQuantity(2);
         twenties.increaseQuantity(5);
 
-        System.out.println(twenties);
-        System.out.println(tens);
-        System.out.println(fives);
-        System.out.println(ones);
-        System.out.println(quarters);
-        System.out.println(dimes);
-        System.out.println(nickels);
-        System.out.println(pennies);
+        for (Notes x: allNotes) {
+            System.out.println(x);
+        }
+        for (Coins x: allCoins) {
+            System.out.println(x);
+        }
 
-        float compositeTotal = ( // make to method
-            twenties.getTotalValue() + tens.getTotalValue() + fives.getTotalValue() + 
-            ones.getTotalValue() + quarters.getTotalValue() + dimes.getTotalValue() + 
-            nickels.getTotalValue() + pennies.getTotalValue()
-        );
-        float compositeWeight = ( // make to method
-            quarters.getTotalWeight() + dimes.getTotalWeight() + nickels.getTotalWeight() + 
-            pennies.getTotalWeight()
-        );
-        System.out.println("Total money is "+ "$"+ String.format("%4.2f", compositeTotal) + " total weight is "+ compositeWeight +"oz."); // is it better make print pretty a method?
+        System.out.println("Total money is "+ "$"+ String.format("%4.2f", compositeTotal(allNotes, allCoins)) + " total weight is "+ compositeWeight(allCoins) +"oz.");
 
         System.out.print("How much do you need? ");
         float amountNeeded = input.nextFloat();
 
         while (amountNeeded != 0) {
             float amountAdjustment = 0;
-            // this is interesting, it can be easily unresourceful and go by 1, or we can find an alternative approach...
-            // try... so can be chosenCurrency.decreaseQuantity and -= chosenQuantity.denomination
-            // Can't do: switch (float)            
 
-            if (amountNeeded > 20 && twenties.getTotalValue() > 0) {
-                amountAdjustment = 20;
-                twenties.decreaseQuantity(1);
+            for (Notes x : allNotes) { // make sure this isn't hardcoded so that amountNeeded > 1, this continues running
+                if (amountNeeded > x.getDenomination() && x.getTotalValue() > 0) {
+                    amountAdjustment = x.getDenomination();
 
-            } else if (amountNeeded > 10 && tens.getTotalValue() > 0) {
-                amountAdjustment = 10;
-                tens.decreaseQuantity(1);
+                    System.out.println("Give them a "+String.format("%4.2f", amountAdjustment)+" note");
+                    amountNeeded -= amountAdjustment;
+                    x.decreaseQuantity(1); // (y == quantityGiven) could be more efficient? (x.getTotalValue() > 0 in iff&&) (keep in mind we need to print every note given) 
+                } 
+            }
+            for (Coins x : allCoins) {
+                if (amountNeeded > x.getDenomination() && x.getTotalValue() > 0) {
+                    amountAdjustment = x.getDenomination();
 
-            } else if (amountNeeded > 5 && fives.getTotalValue() > 0) {
-                amountAdjustment = 5;
-                fives.decreaseQuantity(1);
-
-            } else if (amountNeeded > 1 && ones.getTotalValue() > 0) {
-                amountAdjustment = 1;
-                ones.decreaseQuantity(1);
-
-            } else if (amountNeeded > 0.25 && quarters.getTotalValue() > 0) {
-                amountAdjustment = 0.25f;
-                quarters.decreaseQuantity(1);
-
-            } else if (amountNeeded > 0.1 && dimes.getTotalValue() > 0) {
-                amountAdjustment = 0.1f;
-                dimes.decreaseQuantity(1);
-
-            } else if (amountNeeded > 0.05 && nickels.getTotalValue() > 0) {
-                amountAdjustment = 0.05f;
-                nickels.decreaseQuantity(1);
-            
-            } else if (amountNeeded > 0.01 && pennies.getTotalValue() > 0) { 
-                amountAdjustment = 0.01f;
-                pennies.decreaseQuantity(1);              
-            } else {
-                amountNeeded = 0;
-            } 
-            if (amountNeeded > 0) {
-                System.out.println("Give them a "+String.format("%4.2f", amountAdjustment)+" ");
-                amountNeeded -= amountAdjustment;
+                    System.out.println("Give them a "+String.format("%4.2f", amountAdjustment)+" "); // need to add +quarters, ... ,  pennies); 
+                    amountNeeded -= amountAdjustment;
+                    x.decreaseQuantity(1); 
+                } 
             }
         }
-
-        compositeTotal = ( // make to method
-            twenties.getTotalValue() + tens.getTotalValue() + fives.getTotalValue() + 
-            ones.getTotalValue() + quarters.getTotalValue() + dimes.getTotalValue() + 
-            nickels.getTotalValue() + pennies.getTotalValue()
-        );
-        compositeWeight = ( // make to method
-            quarters.getTotalWeight() + dimes.getTotalWeight() + nickels.getTotalWeight() + 
-            pennies.getTotalWeight()
-        );
-        System.out.println("Total money is "+ "$"+ String.format("%4.2f", compositeTotal) + " total weight is "+ compositeWeight +"oz."); // is it better make print pretty a method?
-
+        System.out.println("Total money is "+ "$"+ String.format("%4.2f", compositeTotal(allNotes, allCoins)) + " total weight is "+ compositeWeight(allCoins) +"oz.");
         input.close();
     }
 }
