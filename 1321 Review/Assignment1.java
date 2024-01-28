@@ -12,11 +12,19 @@ class Coins {
     }
 
     public float getTotalWeight() {
-        return denomination * weight;
+        return weight;
     }
 
     public float getTotalValue() {   
         return denomination * quantityOnHand;
+    }
+
+    public float getDenomination() {
+        return denomination;
+    }
+
+    public int getQuantityOnHand() {
+        return quantityOnHand;
     }
 
     public void increaseQuantity(int quantity) {
@@ -30,10 +38,6 @@ class Coins {
             quantityOnHand -= quantity;
         }
 
-    }
-
-    public int getQuantityOnHand() {
-        return quantityOnHand;
     }
 
     public String printPretty(float amount) {
@@ -116,6 +120,10 @@ public class Assignment1 {
 
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
+        float amountNeeded;
+        float totalValue;
+        float weight;
+
         Notes twenties = new Notes(20);
         Notes tens = new Notes(10);
         Notes fives = new Notes(5);
@@ -143,34 +151,73 @@ public class Assignment1 {
             System.out.println(x);
         }
 
-        System.out.println("Total money is "+ "$"+ String.format("%4.2f", compositeTotal(allNotes, allCoins)) + " total weight is "+ compositeWeight(allCoins) +"oz.");
+        totalValue = compositeTotal(allNotes, allCoins);
+        weight = compositeWeight(allCoins); 
+        System.out.println("Total money is $"+ String.format("%4.2f", totalValue)+ " total weight is "+ weight +"oz.");
 
         System.out.print("How much do you need? ");
-        float amountNeeded = input.nextFloat();
+        amountNeeded = input.nextFloat();
 
-        while (amountNeeded != 0) {
+        while (amountNeeded != 0 || totalValue > 0) {
             float amountAdjustment = 0;
+            String coinString = "";
+            boolean changeGiven = true;
 
-            for (Notes x : allNotes) { // make sure this isn't hardcoded so that amountNeeded > 1, this continues running
-                if (amountNeeded > x.getDenomination() && x.getTotalValue() > 0) {
-                    amountAdjustment = x.getDenomination();
+            if (amountNeeded >= 20 && twenties.getTotalValue() >= 20) {
+                amountAdjustment = 20;
+                twenties.decreaseQuantity(1);
+                
+            } else if (amountNeeded >= 10 && tens.getTotalValue() >= 10) {
+                amountAdjustment = 10;
+                tens.decreaseQuantity(1);
+            
+            } else if (amountNeeded >= 5 && fives.getTotalValue() >= 5) {
+                amountAdjustment = 5;
+                fives.decreaseQuantity(1);
 
-                    System.out.println("Give them a "+String.format("%4.2f", amountAdjustment)+" note");
-                    amountNeeded -= amountAdjustment;
-                    x.decreaseQuantity(1); // (y == quantityGiven) could be more efficient? (x.getTotalValue() > 0 in iff&&) (keep in mind we need to print every note given) 
-                } 
+            } else if (amountNeeded >= 1 && ones.getTotalValue() >= 1) {
+                amountAdjustment = 1;
+                ones.decreaseQuantity(1);
+
+            } else if (amountNeeded >= 0.25 && quarters.getQuantityOnHand() > 0) {
+                amountAdjustment = 0.25f;
+                quarters.decreaseQuantity(1);
+                coinString = "quarter";
+
+            } else if (amountNeeded >= 0.1 && dimes.getQuantityOnHand() > 0) {
+                amountAdjustment = 0.1f;
+                dimes.decreaseQuantity(1);
+                coinString = "dime";
+
+            } else if (amountNeeded >= 0.05 && nickels.getQuantityOnHand() > 0) {
+                amountAdjustment = 0.05f;
+                nickels.decreaseQuantity(1);
+                coinString = "nickel";
+
+            } else if (amountNeeded >= 0.01 && pennies.getQuantityOnHand() > 0) { 
+                amountAdjustment = 0.01f;
+                pennies.decreaseQuantity(1);              
+                coinString = "penny";
+
+            } else {
+                changeGiven = false;
+            } 
+
+            if (changeGiven) {
+                if (amountAdjustment >= 1) { 
+                    System.out.println("Give them a $"+String.format("%4.2f", amountAdjustment));
+                } else {
+                    System.out.println("Give them a "+coinString);
+                }
+                amountNeeded -= amountAdjustment;
+
+            } else if (amountNeeded > 0) { // !!WTF
+                System.out.println("I don't have enough money. I still owe you $"+amountNeeded);
+                break;
             }
-            for (Coins x : allCoins) {
-                if (amountNeeded > x.getDenomination() && x.getTotalValue() > 0) {
-                    amountAdjustment = x.getDenomination();
-
-                    System.out.println("Give them a "+String.format("%4.2f", amountAdjustment)+" "); // need to add +quarters, ... ,  pennies); 
-                    amountNeeded -= amountAdjustment;
-                    x.decreaseQuantity(1); 
-                } 
-            }
+            
         }
-        System.out.println("Total money is "+ "$"+ String.format("%4.2f", compositeTotal(allNotes, allCoins)) + " total weight is "+ compositeWeight(allCoins) +"oz.");
+        System.out.println("Total money is $"+ String.format("%4.2f", totalValue)+ " total weight is "+ weight +"oz.");
         input.close();
     }
 }
