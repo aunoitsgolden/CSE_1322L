@@ -12,19 +12,11 @@ class Coins {
     }
 
     public float getTotalWeight() {
-        return weight;
+        return weight * quantityOnHand;
     }
 
     public float getTotalValue() {   
         return denomination * quantityOnHand;
-    }
-
-    public float getDenomination() {
-        return denomination;
-    }
-
-    public int getQuantityOnHand() {
-        return quantityOnHand;
     }
 
     public void increaseQuantity(int quantity) {
@@ -38,6 +30,10 @@ class Coins {
             quantityOnHand -= quantity;
         }
 
+    }
+
+    public int getQuantityOnHand() {
+        return quantityOnHand;
     }
 
     public String printPretty(float amount) {
@@ -75,14 +71,6 @@ class Notes {
         }
     }
 
-    public int getQuantityOnHand() {
-        return quantityOnHand;
-    }
-
-    public int getDenomination() {
-        return denomination;
-    }
-
     public String printPretty(float amount) {
         return("$"+ String.format("%4.2f", amount));
     }
@@ -90,7 +78,6 @@ class Notes {
     public String toString() {
         return printPretty(getTotalValue()) +" in "+ printPretty(denomination) +" notes.";
     }
-
 
 }
 
@@ -121,8 +108,7 @@ public class Assignment1 {
     public static void main(String args[]) {
         Scanner input = new Scanner(System.in);
         float amountNeeded;
-        float totalValue;
-        float weight;
+        boolean changeGiven = true;
 
         Notes twenties = new Notes(20);
         Notes tens = new Notes(10);
@@ -150,18 +136,15 @@ public class Assignment1 {
         for (Coins x: allCoins) {
             System.out.println(x);
         }
-
-        totalValue = compositeTotal(allNotes, allCoins);
-        weight = compositeWeight(allCoins); 
-        System.out.println("Total money is $"+ String.format("%4.2f", totalValue)+ " total weight is "+ weight +"oz.");
+        
+        System.out.println("Total Money is $"+ String.format("%4.2f", compositeTotal(allNotes, allCoins))+ " total weight is "+ compositeWeight(allCoins) +"oz.");
 
         System.out.print("How much do you need? ");
         amountNeeded = input.nextFloat();
 
-        while (amountNeeded != 0 || totalValue > 0) {
+        do {
             float amountAdjustment = 0;
             String coinString = "";
-            boolean changeGiven = true;
 
             if (amountNeeded >= 20 && twenties.getTotalValue() >= 20) {
                 amountAdjustment = 20;
@@ -201,23 +184,25 @@ public class Assignment1 {
 
             } else {
                 changeGiven = false;
-            } 
+                
+            }         
 
             if (changeGiven) {
                 if (amountAdjustment >= 1) { 
-                    System.out.println("Give them a $"+String.format("%4.2f", amountAdjustment));
+                    System.out.println("Give them a $"+(int)(amountAdjustment)+" note");
                 } else {
                     System.out.println("Give them a "+coinString);
                 }
                 amountNeeded -= amountAdjustment;
-
-            } else if (amountNeeded > 0) { // !!WTF
-                System.out.println("I don't have enough money. I still owe you $"+amountNeeded);
-                break;
-            }
             
-        }
-        System.out.println("Total money is $"+ String.format("%4.2f", totalValue)+ " total weight is "+ weight +"oz.");
+            } else if (compositeTotal(allNotes, allCoins) <= 0.00f) {
+                System.out.println("I don't have enough money. I still owe you $"+String.format("%4.2f", amountNeeded));
+
+            }
+        
+        } while (changeGiven);
+        compositeWeight(allCoins);
+        System.out.println("I have $"+String.format("%4.2f", compositeTotal(allNotes, allCoins))+" left, it's total weight is "+ (compositeWeight(allCoins) < 0.0009 ? "0" : String.format("%4.3f", compositeWeight(allCoins))) +"oz");
         input.close();
     }
 }
