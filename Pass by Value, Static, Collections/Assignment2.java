@@ -934,33 +934,46 @@ public class Assignment2 {
         }
     }
 
-    public static void guessWordWithLetter(English language, int length, String letters) {
-        /* look for all words that are 3 letters long that have 'a' and 't' and print them
-        you can iterate over every word in the english objects list, then decide if it's right
-        length, then check what letters are passed, and see if they are in the word. */
+    public static void guessWordWithLetter(English dictionary, int targetSize, String letters) {
+        ArrayList<String> properLengthArray = new ArrayList<String>();
+        char[] letterArray = letters.toCharArray();
 
-        // put all 3 letter words from language into another 
-        char[] y = letters.toCharArray();
-        for (int i = 0; i < )
-
-        for (int i = 0; i < .length; i++) {
-
-        }
-
-
-        for (int i = 0; i < y.length; i++) {
-            if (y[i] == ) {
-                return ;
+        // get only the words that are of proper length
+        for (String word : dictionary.words) {
+            if (word.length() == targetSize) {
+                properLengthArray.add(word);
             }
         }
 
-        if (rightLength && wordContainsLetter(letter)) {
-            System.out.println();
+        // see what letters are in the word
+        for (String sizedWord : properLengthArray) {
+            int i = 0;
+            for (int j = 0; j < letterArray.length; j++) { // iterate through each letter
+                if (wordContainsLetter(sizedWord, letterArray[j])) { 
+                    i++;
+                } 
+            }
+            if (i == letterArray.length) { // determine if all the letters are in sizedWord
+                System.out.println(sizedWord);
+            }
         }
+
     }
 
-    public static void guessWordWithPattern(English eng, int length, String pattern) {
-        // Must print only words that have 'c' AND THEN 't' (such as "cat")
+    public static void guessWordWithPattern(English dictionary, int targetSize, String pattern) {
+        ArrayList<String> properLengthArray = new ArrayList<String>();
+
+        for (String word : dictionary.words) {
+            if (word.length() == targetSize) {
+                properLengthArray.add(word);
+            }
+        }
+
+        for (String sizedWord : properLengthArray) {
+            if (wordContainsString(sizedWord, pattern)) { 
+                System.out.println(sizedWord);
+            } 
+        }
     }
 
     public static void main(String[] args) {
@@ -974,16 +987,22 @@ public class Assignment2 {
                         +"\n1. Letters"
                         +"\n2. Pattern"
         );
-        
-        switch (input.nextInt()) {
+        int choice = input.nextInt();
+        input.nextLine();
+
+        switch (choice) {
             case 1:
                 System.out.println("What letters are in the word?");
-                guessWordWithLetter(dictionary, length, input.nextLine());
+                String letters = input.nextLine(); 
+                System.out.println("It might be any of these...");
+                guessWordWithLetter(dictionary, length, letters);
                 break;
             
             case 2:
                 System.out.println("What pattern is in the word?");
-                guessWordWithPattern(dictionary, length, input.nextLine());
+                String pattern = input.nextLine(); 
+                System.out.println("It might be any of these...");
+                guessWordWithPattern(dictionary, length, pattern);
                 break;
         }
 
