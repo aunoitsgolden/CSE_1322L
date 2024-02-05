@@ -2,17 +2,22 @@ import java.util.*;
 
 class Account {
 
-    private static int account_number = 10000; 
+    private static int account_number_increment = 10000;
+    private int account_number; 
     private float account_balance;
 
     public Account() {
         account_balance = 0;
-        account_number++;
+        account_number = nextAccountNumber();
     }
 
     public Account(float account_balance) {
         this.account_balance = account_balance;
-        account_number++;
+        this.account_number = nextAccountNumber();
+    }
+
+    public int nextAccountNumber() {
+        return ++account_number_increment;
     }
 
     public int getAccountNumber() {
@@ -39,8 +44,8 @@ class Account {
 
 class Checking extends Account {
 
-    public Checking(float account_balance) { // (float account_balance) {
-        super.account_number;
+    public Checking(float account_balance) {
+        super(account_balance);
     }
 
     @Override
@@ -60,7 +65,7 @@ class Savings extends Account {
     private int deposit_occurence;
 
     public Savings(float account_balance) {
-        super();
+        super(account_balance);
         deposit_occurence = 0;
     }
 
