@@ -5,9 +5,9 @@
 - Pass by Value, Static, Collections
   - [Lab 2](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Pass%20by%20Value%2C%20Static%2C%20Collections/Lab2.java), [Lab 3](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Pass%20by%20Value%2C%20Static%2C%20Collections/Lab3.java) + [Assignment 2](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Pass%20by%20Value%2C%20Static%2C%20Collections/Assignment2.java)
 - Advanced OOP
-  - [Lab 4](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Advanced%20OOP/Lab4.java), Lab 5, and Lab 6 + Assignment 3 and Assignment 4
+  - [Lab 4](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Advanced%20OOP/Lab4.java), [Lab 5](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Advanced%20OOP/Lab5.java), and [Lab 6](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Advanced%20OOP/Lab6.java) + [Assignment 3](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Advanced%20OOP/Assignment3.java) and [Assignment 4](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Advanced%20OOP/Assignment4.java)
 - Recursion
-  - Lab 7 + Assignment 5
+  - [Lab 7](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Recursion/Lab7.java) + [Assignment 5](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Recursion/Assignment5.java)
 - Exceptions
   - Lab 8
 - File IO
