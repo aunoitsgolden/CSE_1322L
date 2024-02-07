@@ -9,12 +9,12 @@
 - Recursion
   - [Lab 7](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Recursion/Lab7.java) + [Assignment 5](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Recursion/Assignment5.java)
 - Exceptions
-  - Lab 8
+  - [Lab 8](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Exceptions/Lab8.java)
 - File IO
-  - Lab 9 + Assignment 6
+  - [Lab 9](https://github.com/aunoitsgolden/CSE_1322L/blob/main/File%20IO/Lab9.java) + [Assignment 6](https://github.com/aunoitsgolden/CSE_1322L/blob/main/File%20IO/Assignment6.java)
 - Threads & Parallel
-  - Lab 10
+  - [Lab 10](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Threads%20%26%20Parallel/Lab10.java)
 - Data Structures
-  - Lab 11 + Assignment 7
+  - [Lab 11](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Data%20Structures/Lab11.java) + [Assignment 7](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Data%20Structures/Assignment7.java)
 - Graphs & GUIs
-  - Lab 12
+  - [Lab 12](https://github.com/aunoitsgolden/CSE_1322L/blob/main/Graphics%20%26%20GUIs/Lab12.java)
