@@ -39,7 +39,7 @@ class Book extends Item {
     }
 
     public Book(String title, String author, int isbn_number) {
-        super();
+        super(title);
         this.author = author;
         this.isbn_number = isbn_number;
     }
@@ -77,7 +77,7 @@ class Periodicals extends Item {
     }
 
     public Periodicals(String title, int issue_num) {
-        super();
+        super(title);
         this.issue_num = issue_num;
     }
 
